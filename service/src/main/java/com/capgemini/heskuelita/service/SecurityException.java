@@ -1,7 +1,10 @@
+
 package com.capgemini.heskuelita.service;
 
-// Heredamos de una exception checkeada para practicar
+
 public class SecurityException extends Exception {
+
+
     public SecurityException() {
     }
 

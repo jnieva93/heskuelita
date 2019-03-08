@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* Lo que vamos a hacer es llamado Reset Style */
+
+/* Referenciamos el body */
+body {
+	font-family: 'Roboto', sans-serif;		/* Fuente para el body */
+	background: url(../img/back2.jpg) no-repeat center center fixed;	/* Foto de fondo. center center para centrar */
+	background-size: cover;		/* Cubre todo el fondo */
+}
+/* Referenciamos la clase main-section */
+.main-section {
+	margin: 0 auto;		/* Margenes de arriba y abajo en 0 y centra horizontalmente en el contenedor */
+	margin-top: 130px;	/* 130px de margen superior */
+	padding: 0;			/* Pone el padding (espaciado?) en 0 */
+}
+/* Referenciamos la clase modal-content */
+.modal-content {
+	background-color: #3b4652;		/* Color de fondo del cuadrito */
+	opacity: .95;		/* Transparencia */
+	padding: 0 18px;		/* 0 de superior e inferior y 18 de los costados */
+	box-shadow: 0 0 3px #848484;		/* Pequena sombra 0 lados 0 inf sup y 3 de borde */
+}
+/* Referenciamos la clase user-img */
+.user-img {
+	margin-top: -50px;		/* Margen superior. En este caso, sube */
+	margin-bottom: 35px;	/* Margen inferior */
+}
+/* Referenciamos la imagen */
+.user-img img {
+	height: 100px;		/* Alto. Mantener proporcion */
+	width: 100px;		/* Ancho */
+	border-radius: 7px;		/* Redondea los bordes */
+	box-shadow: 0 0 2px #3b4652;
+}
+/* Referenciamos la clase form-group */
+.form-group {
+	margin-bottom: 25px;	/* Margen inferior */
+}
+/* Refeferenciamos el input (cuadros de texto) de form-group */
+.form-group input {
+	height: 45px;
+	border-radius: 7px;
+	border: 0;				/* Quita el borde */
+	font-size: 20px;		/* Tamano de fuente */
+	padding-left: 54px;
+}
+/* Referenciamos lo que esta antes de form-group? */
+.form-group::before {
+	font-family: 'Font Awesome\ 5 Free';		/* Usaremos esta (?) */
+	content: "\f007";		/* uUamos el icono f007 */
+	position: absolute;		/* Permite acomodarlo dentro del cuadro */
+	font-size: 25px;		/* Tamano del icono */
+	color: #555e60;			/* Color */
+	left: 28px;				/* Espaciado desde el borde izq del modal */
+	padding: 2px;
+}
+/* Referenciamos el otro cuadro de texto */
+.form-group:last-of-type::before {
+	content: "\f13e";
+}
+/* Referenciamos la etiqueta button */
+button {
+	width: 40%;
+	margin: 5px 0 25px;		/* Margen top, izq der, bot */
+}
+/* Referenciamos la clase btn */
+.btn {
+	background-color: #27c2a5;
+	color: #fff;		/* Color del icono y texto del boton */
+	font-size: 19px;
+	padding: 7px 14px;
+	border-radius: 7px;
+	border-bottom: 5px solid #219882;
+}
+/* Referenciamos cuando pasamos por encima del boton */
+.btn:hover, .btn:focus {
+	background-color: #25a890!important;
+	border-bottom: 4px solid #25a890!important;
+}
+/* Referenciamos el icono del boton. Use Mozilla */
+.svg-inline--fa {
+	font-size: 20px;		/* Tamano del icono */
+	margin-right: 7px;		/* Margen a la derecha */
+}
+/* Referenciamos la clase forgot */
+.forgot {
+	padding: 5px 0 25px;
+}
+/* Referenciamos el link */
+.forgot a {
+	color: #c2fbfe;
+}

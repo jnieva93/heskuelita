@@ -1,3 +1,4 @@
+
 package com.capgemini.heskuelita.web.servlet;
 
 import com.capgemini.heskuelita.core.beans.User;
@@ -6,54 +7,62 @@ import com.capgemini.heskuelita.data.impl.UserDaoJDBC;
 import com.capgemini.heskuelita.service.ISecurityService;
 import com.capgemini.heskuelita.service.impl.SecurityServiceImpl;
 
+import java.io.*;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.*;
+import javax.servlet.http.*;
 
-@WebServlet("/login")
+
+@WebServlet ("/login")
 public class LoginServlet extends HttpServlet {
+
 
     private ISecurityService securityService;
 
-    public LoginServlet() {
-        super();
+
+    public LoginServlet () {
+
+        super ();
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init (ServletConfig config) throws ServletException {
+
         ServletContext context = config.getServletContext();
 
         DBConnectionManager manager = (DBConnectionManager) context.getAttribute("db");
 
         try {
-            this.securityService = new SecurityServiceImpl(new UserDaoJDBC(manager.getConnection()));
+
+            this.securityService = new SecurityServiceImpl (new UserDaoJDBC (manager.getConnection()));
         } catch (Exception e) {
+
             throw new ServletException(e);
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User();
-        user.setUserName(req.getParameter("user"));
-        user.setPassword(req.getParameter("pwd"));
+
+        User user = new User ();
+        user.setUserName (req.getParameter ("user"));
+        user.setPassword (req.getParameter ("pwd"));
 
         try {
-            this.securityService.login(user);
 
-            httpSession session = req.getSession();
-            session.setAttribute("user", user);
+            this.securityService.login (user);
 
-            resp.sendRedirect("home.jsp");
+            HttpSession session = req.getSession ();
+            session.setAttribute ("user", user);
+
+            resp.sendRedirect ("home.jsp");
+
         } catch (Exception e) {
-            resp.sendRedirect("err.jsp");
+            e.printStackTrace();
+            resp.sendRedirect ("err.jsp");
         }
     }
 }
