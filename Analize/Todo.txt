@@ -1,0 +1,97 @@
+
+REGISTRATION
+Name
+Last name
+Birthday
+Documentation type (DNI, Passport, etc)
+Identification
+Phone
+Sex - Gender
+Country
+State (Province)
+City
+Address (Street, number, Zipcode)
+Picture (Profile)
+
+Username (E-mail)
+Password
+Security question
+
+
+TEACHER
+Name
+Last name
+Birthday
+Documentation type (DNI, Passport, etc)
+Identification
+Phone
+Sex - Gender
+Country
+State (Province)
+City
+Address (Street, number, Zipcode)
+Picture (Profile)
+
+
+Formulario para cursos (donde van a ser cargados):
+Name
+Description
+Content
+
+
+Scheduler:
+Course
+Date init
+Date end
+Time
+Teacher
+
+
+Interfaz de servicio
+Dar de alta,
+Buscar un alumno, buscar un curso,
+Mostrar
+
+------------------------------------------------------------------------------
+Las dependencias de core no hace falta agregarlas a otros submodulos
+service las reglas de negocios
+data las bases de datos
+web la pagina
+ORDENAR TODO EN CASA
+
+Vimos eventos. Lo definio y definio el listener
+
+La base de datos debe estar en un sitio compartido por toda la aplicacion,
+y se cierra cuando la aplicacion cae, un objeto de aplicacion.
+Este objeto de aplicacion debe ser de solo lectura.
+
+metodo contextInitialized se dispara una sola vez. Es un listener. Eficiente
+para levantar la conexion de la base de datos. Recomentar.
+metodo contextDestroyed la cierra.
+Todo esto va en data
+DARLE BOLA
+
+Pasos:
+Creamos la pagina de bienvenida. Debe ir en webapp dentro del modulo web
+Luego el paquete servlet dentro de web dentro de web/main...
+Despues creamos la clase LoginServlet dentro del paquete servlet
+Generamos automaticamente el doPost
+En service/src/main creamos la carpeta java y la seteamos como source root
+Creamos ISecurityService y SecurityException
+Igual para core/src/main
+Creamos la clase User
+Creamos en service el paquete impl que tiene la implementacion de servicios
+Y dentro una clase llamada SecurityServiceImpl que implementa ISecurity
+Que redireccione a la pagina correspondiente
+En Data creamos una nueva interfaz IUserDao
+Un package impl con la clase UserDaoJDBC
+
+LEER IOC y DI Inversion de control e injeccion de dependencia
+ENTENDER EL CODIGO DEL PROFE
+
+
+TIPS:
+Usar throw new Exception en vez de printStacktrace?
+Revisar la conf del intelliJ. En el engranaje tildar show members y destildar
+compact middle packages
+PARA PASARNOS DATOS, USAMOS LA SESION
