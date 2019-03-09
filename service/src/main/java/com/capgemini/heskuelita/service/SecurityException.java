@@ -1,9 +1,6 @@
-
 package com.capgemini.heskuelita.service;
 
-
 public class SecurityException extends Exception {
-
 
     public SecurityException() {
     }
@@ -19,4 +16,5 @@ public class SecurityException extends Exception {
     public SecurityException(Throwable cause) {
         super(cause);
     }
+    
 }
