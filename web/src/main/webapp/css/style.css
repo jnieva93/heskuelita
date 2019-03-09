@@ -8,6 +8,18 @@ body {
 	background: url(../img/back2.jpg) no-repeat center center fixed;	/* Foto de fondo. center center para centrar */
 	background-size: cover;		/* Cubre todo el fondo */
 }
+h2 {
+	color: #fff;
+	text-align: center;
+	font-size: 30px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+p {
+	color: #fff;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
 /* Referenciamos la clase main-section */
 .main-section {
 	margin: 0 auto;		/* Margenes de arriba y abajo en 0 y centra horizontalmente en el contenedor */
@@ -32,6 +44,14 @@ body {
 	width: 100px;		/* Ancho */
 	border-radius: 7px;		/* Redondea los bordes */
 	box-shadow: 0 0 2px #3b4652;
+}
+.img2 {
+	height: 100px;
+	width: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -10px;
+	margin-bottom: 10px;
 }
 /* Referenciamos la clase form-group */
 .form-group {
@@ -72,6 +92,8 @@ button {
 	padding: 7px 14px;
 	border-radius: 7px;
 	border-bottom: 5px solid #219882;
+	margin-left: auto;
+	margin-right: auto;
 }
 /* Referenciamos cuando pasamos por encima del boton */
 .btn:hover, .btn:focus {
