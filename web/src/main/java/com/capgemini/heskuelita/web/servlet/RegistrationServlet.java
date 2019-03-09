@@ -1,84 +1,76 @@
 package com.capgemini.heskuelita.web.servlet;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.sql.SQLException;
 
-
-import java.io.IOException;
-
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.PreparedStatement;
+import com.capgemini.heskuelita.core.beans.Student;
+import com.capgemini.heskuelita.core.beans.User;
+import com.capgemini.heskuelita.data.IStudentDao;
+import com.capgemini.heskuelita.data.IUserDao;
+import com.capgemini.heskuelita.data.db.DBConnectionManager;
+import com.capgemini.heskuelita.data.impl.StudentDaoJDBC;
+import com.capgemini.heskuelita.data.impl.UserDaoJDBC;
+
 @WebServlet("/Registration")
 public class RegistrationServlet extends HttpServlet {
-
-    private BasicDataSource dataSource;
-
-    protected void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Crea un nuevo Datasource
-        this.dataSource = new BasicDataSource();
-
-        // Los primeros setean url, usuario y contrasena de postgres. Los
-        // otros tres por ahora por defecto asi
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/heskuelita");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("mhfu17");
-        dataSource.setMinIdle (5);
-        dataSource.setMaxIdle (10);
-        dataSource.setMaxOpenPreparedStatements (100);
-        dataSource.setDriverClassName("org.postgresql.Driver");
-
-        // Obtenemos los datos del formulario
-        String name = request.getParameter("name");
-        String lastName = request.getParameter("lastName");
-        String dni = request.getParameter("dni");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String gender = request.getParameter("gender");
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-
-        try {
-            // Datos a la tabla student
-            PreparedStatement prepStm = this.dataSource.getConnection().prepareStatement("INSERT INTO student VALUES (default, ?, ?, ?, ?, ?, ?, ?)");
-
-            prepStm.setString(1, name);
-            prepStm.setString(2, lastName);
-            prepStm.setString(3, dni);
-            prepStm.setString(4, phone);
-            prepStm.setString(5, address);
-            prepStm.setString(6, gender);
-            prepStm.setString(7, userName);
-
-            // Ejecuta el insert
-            prepStm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Datasource 2
-        try {
-            // Datos a la tabla users
-            PreparedStatement prepStm = this.dataSource.getConnection().prepareStatement("INSERT INTO users VALUES (?, ?, ?)");
-
-            prepStm.setString(1, userName);
-            prepStm.setString(2, password);
-            prepStm.setString(3, email);
-
-            // Ejecuta el insert
-            prepStm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        response.sendRedirect ("index.jsp");
-    }
+	
+	private IStudentDao studentDao;
+	private IUserDao userDao;
+	
+	public RegistrationServlet() {		
+		super();
+	}
+	
+	
+	@Override
+	public void init (ServletConfig config) throws ServletException {
+		
+		ServletContext context = config.getServletContext();
+		
+		DBConnectionManager manager = (DBConnectionManager) context.getAttribute("db");
+		
+		this.studentDao = new StudentDaoJDBC(manager.getConnection());
+		this.userDao = new UserDaoJDBC(manager.getConnection());
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Obtenemos datos del formulario
+		Student student = new Student();
+		student.setName(request.getParameter("name"));
+		student.setLastName(request.getParameter("lastName"));
+		student.setDni(request.getParameter("dni"));
+		student.setPhone(request.getParameter("phone"));
+		student.setAddress(request.getParameter("address"));
+		student.setGender(request.getParameter("gender"));
+		student.setUserName(request.getParameter("userName"));
+		
+		User user = new User();
+		user.setUserName(request.getParameter("userName"));
+		user.setPassword(request.getParameter("password"));
+		user.setEmail(request.getParameter("email"));
+		
+		try {
+			// Agrega los datos del estudiante a la tabla student
+			studentDao.addStudent(student);
+			
+			// Agrega los datos del usuario a la tabla users
+			userDao.addUser(user);	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect ("index.jsp");
+	}
 
 }
