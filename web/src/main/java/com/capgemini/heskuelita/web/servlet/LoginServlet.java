@@ -24,21 +24,21 @@ public class LoginServlet extends HttpServlet {
     }
 
     
-    // Inicia la conexion
-    @Override
-    public void init (ServletConfig config) throws ServletException {
-
-        ServletContext context = config.getServletContext();
-
-        DBConnectionManager manager = (DBConnectionManager) context.getAttribute("db");
-
-        try {
-            this.securityService = new SecurityServiceImpl (new UserDaoJDBC (manager.getConnection()));
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
-        
-    }
+//    // Inicia la conexion
+//    @Override
+//    public void init (ServletConfig config) throws ServletException {
+//
+//        ServletContext context = config.getServletContext();
+//
+//        DBConnectionManager manager = (DBConnectionManager) context.getAttribute("db");
+//
+//        try {
+//            this.securityService = new SecurityServiceImpl (new UserDaoJDBC (manager.getConnection()));
+//        } catch (Exception e) {
+//            throw new ServletException(e);
+//        }
+//        
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
