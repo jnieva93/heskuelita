@@ -15,7 +15,8 @@
         <property name="format_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
 
-        <mapping class="com.capgemini.hibernate.beginners.entity.EmployeeAnnotation" />
+        <mapping class="com.capgemini.heskuelita.data.entity.UserAnnotation"/>
+        <mapping class="com.capgemini.heskuelita.data.entity.StudentAnnotation"/>
 
 	</session-factory>
 

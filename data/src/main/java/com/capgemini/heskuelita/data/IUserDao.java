@@ -2,12 +2,12 @@ package com.capgemini.heskuelita.data;
 
 import java.sql.SQLException;
 
-import com.capgemini.heskuelita.core.beans.User;
+import com.capgemini.heskuelita.data.entity.UserAnnotation;
 
 public interface IUserDao {
 
-    User login(String userName, String password);
+    UserAnnotation login(String userName, String password);
 
-	void addUser(User user) throws SQLException;
+	void addUser(UserAnnotation user) throws SQLException;
 	
 }

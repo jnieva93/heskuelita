@@ -3,8 +3,6 @@ package com.capgemini.heskuelita.data.entity;
 import javax.persistence.*;
 import lombok.*;
 
-@Data
-@NoArgsConstructor
 @Entity(name = "Student")
 @Table(name = "student")
 public class StudentAnnotation {
@@ -32,9 +30,17 @@ public class StudentAnnotation {
 	
 	@Column(name = "gender", length = 20)
 	private String gender;
+	
+	@Column(name = "username", length = 30)
+	private String userName;
+	
+	
+	public StudentAnnotation() {
+		super();
+	}
 
 	public StudentAnnotation(String firstName, String lastName, String dni, String phone, String address,
-			String gender) {
+			String gender, String userName) {
 		super();
 		
 		this.firstName = firstName;
@@ -43,6 +49,72 @@ public class StudentAnnotation {
 		this.phone = phone;
 		this.address = address;
 		this.gender = gender;
+		this.userName = userName;
+	}
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

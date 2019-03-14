@@ -4,20 +4,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.capgemini.heskuelita.core.beans.Student;
-import com.capgemini.heskuelita.core.beans.User;
+import com.capgemini.heskuelita.data.entity.UserAnnotation;
+import org.hibernate.SessionFactory;
+
 import com.capgemini.heskuelita.data.IStudentDao;
 import com.capgemini.heskuelita.data.IUserDao;
-import com.capgemini.heskuelita.data.db.DBConnectionManager;
-import com.capgemini.heskuelita.data.impl.StudentDaoJDBC;
-import com.capgemini.heskuelita.data.impl.UserDaoJDBC;
+import com.capgemini.heskuelita.data.entity.StudentAnnotation;
+import com.capgemini.heskuelita.data.impl.StudentDaoHibernate;
+import com.capgemini.heskuelita.data.impl.UserDaoHibernate;
+import com.capgemini.heskuelita.data.util.HibernateUtil;
 
 @WebServlet("/Registration")
 public class RegistrationServlet extends HttpServlet {
@@ -33,12 +34,10 @@ public class RegistrationServlet extends HttpServlet {
 	@Override
 	public void init (ServletConfig config) throws ServletException {
 		
-		ServletContext context = config.getServletContext();
+		SessionFactory manager = HibernateUtil.getSessionFactory();
 		
-		DBConnectionManager manager = (DBConnectionManager) context.getAttribute("db");
-		
-		this.studentDao = new StudentDaoJDBC(manager.getConnection());
-		this.userDao = new UserDaoJDBC(manager.getConnection());
+		this.studentDao = new StudentDaoHibernate(manager);
+		this.userDao = new UserDaoHibernate(manager);
 		
 	}
 	
@@ -46,8 +45,8 @@ public class RegistrationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Obtenemos datos del formulario
-		Student student = new Student();
-		student.setName(request.getParameter("name"));
+		StudentAnnotation student = new StudentAnnotation();
+		student.setFirstName(request.getParameter("name"));
 		student.setLastName(request.getParameter("lastName"));
 		student.setDni(request.getParameter("dni"));
 		student.setPhone(request.getParameter("phone"));
@@ -55,7 +54,7 @@ public class RegistrationServlet extends HttpServlet {
 		student.setGender(request.getParameter("gender"));
 		student.setUserName(request.getParameter("userName"));
 		
-		User user = new User();
+		UserAnnotation user = new UserAnnotation();
 		user.setUserName(request.getParameter("userName"));
 		user.setPassword(request.getParameter("password"));
 		user.setEmail(request.getParameter("email"));

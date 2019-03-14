@@ -1,4 +1,4 @@
-<%@ page import="com.capgemini.heskuelita.core.beans.User" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.capgemini.heskuelita.data.entity.UserAnnotation" contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,7 @@
 		<div class="col-sm-8 main-section">
 			<div class="modal-content">
 				<h2>Welcome Home</h2>
-				<%User us = (User)session.getAttribute ("user");%>
+				<%UserAnnotation us = (UserAnnotation)session.getAttribute ("user");%>
 				<!--<img class="img2" src="img/alert.png">-->
 				<p>Your username is <%=us.getUserName() + " and your password is " + us.getPassword()%></p>
 				<a href="index.jsp"><button class="btn"><i class="fas fa-sign-out-alt"></i>Log out</button></a>

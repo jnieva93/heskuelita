@@ -16,11 +16,7 @@ public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
 
-    private static SessionFactory sessionAnnotationFactory;
-
     private static SessionFactory sessionJavaConfigFactory;
-
-    private static SessionFactory sessionHierarchyConfigFactory;
 
     private static final Logger logger = LoggerFactory.getLogger (HibernateUtil.class);
 
@@ -55,29 +51,6 @@ public class HibernateUtil {
         }
     }
 
-    private static SessionFactory buildSessionAnnotationFactory () {
-
-        try {
-
-            Configuration configuration = new Configuration ();
-        	configuration.configure ("hibernate-annotation.cfg.xml");
-        	logger.debug ("Hibernate Annotation Configuration loaded...");
-        	
-        	ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().
-                    applySettings (configuration.getProperties ()).build ();
-            logger.debug ("Hibernate Annotation serviceRegistry created...");
-        	
-        	SessionFactory sessionFactory = configuration.buildSessionFactory (serviceRegistry);
-        	
-            return sessionFactory;
-        }
-        catch (Throwable ex) {
-
-            logger.error ("Initial SessionFactory creation failed.", ex);
-            throw new ExceptionInInitializerError (ex);
-        }
-	}
-
     private static SessionFactory buildSessionJavaConfigFactory () {
 
     	try {
@@ -110,51 +83,16 @@ public class HibernateUtil {
         }
 	}
 
-    private static SessionFactory buildSessionHierarchyAnnotationFactory () {
-
-        try {
-
-            Configuration configuration = new Configuration ();
-            configuration.configure ("hibernate-heirarchy.cfg.xml");
-            logger.debug ("Hibernate Hierarchy Annotation Configuration loaded...");
-
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().
-                    applySettings (configuration.getProperties ()).build ();
-            logger.debug ("Hibernate Hierarchy Annotation serviceRegistry created...");
-
-            SessionFactory sessionFactory = configuration.buildSessionFactory (serviceRegistry);
-
-            return sessionFactory;
-        }
-        catch (Throwable ex) {
-
-            logger.error ("Initial Hierarchy SessionFactory creation failed.", ex);
-            throw new ExceptionInInitializerError (ex);
-        }
-    }
-
 	public static SessionFactory getSessionFactory () {
 
 		if (sessionFactory == null) { sessionFactory = buildSessionFactory (); }
         return sessionFactory;
     }
 	
-	public static SessionFactory getSessionAnnotationFactory () {
-
-		if (sessionAnnotationFactory == null) { sessionAnnotationFactory = buildSessionAnnotationFactory (); }
-        return sessionAnnotationFactory;
-    }
-	
 	public static SessionFactory getSessionJavaConfigFactory () {
 
         if (sessionJavaConfigFactory == null) { sessionJavaConfigFactory = buildSessionJavaConfigFactory (); }
         return sessionJavaConfigFactory;
-    }
-
-    public static SessionFactory getSessionHierarchyConfigFactory () {
-
-        if (sessionHierarchyConfigFactory == null) { sessionHierarchyConfigFactory = buildSessionHierarchyAnnotationFactory (); }
-        return sessionHierarchyConfigFactory;
     }
     
 }
