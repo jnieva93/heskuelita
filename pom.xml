@@ -1,7 +1,7 @@
 <!--
    - Name: pom.xml
    - Description: Maven setup file.
-   - Author: Raul Peña (raul.pena@gmail.com)
+   - Author: Jose Adan Nieva (josenieva93@gmail.com)
    -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -64,13 +64,6 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.22</version>
             <scope>compile</scope>
         </dependency>
 
