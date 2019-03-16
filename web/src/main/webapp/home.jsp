@@ -19,7 +19,6 @@
 			<div class="modal-content">
 				<h2>Welcome Home</h2>
 				<%UserAnnotation us = (UserAnnotation)session.getAttribute ("user");%>
-				<!--<img class="img2" src="img/alert.png">-->
 				<p>Your username is <%=us.getUserName() + " and your password is " + us.getPassword()%></p>
 				<a href="index.jsp"><button class="btn"><i class="fas fa-sign-out-alt"></i>Log out</button></a>
 			</div>

@@ -1,7 +1,6 @@
 package com.capgemini.heskuelita.web.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,7 +24,8 @@ public class RegistrationServlet extends HttpServlet {
 	
 	private IStudentDao studentDao;
 	private IUserDao userDao;
-	
+
+
 	public RegistrationServlet() {		
 		super();
 	}
@@ -65,11 +65,12 @@ public class RegistrationServlet extends HttpServlet {
 			
 			// Agrega los datos del usuario a la tabla users
 			userDao.addUser(user);	
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		response.sendRedirect ("index.jsp");
+
 	}
 
 }
