@@ -1,7 +1,6 @@
 package com.capgemini.heskuelita.data.entity;
 
 import javax.persistence.*;
-import lombok.*;
 
 @Entity(name = "User")
 @Table(name = "users")

@@ -21,7 +21,8 @@ public class UserDaoHibernate implements IUserDao {
 	
 	private static SessionFactory sessionFactory;
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoHibernate.class);
-	
+
+
 	// Recordar que la session es igual a la conn
 	public UserDaoHibernate(SessionFactory sessionFactory) {
 		super();
@@ -48,10 +49,11 @@ public class UserDaoHibernate implements IUserDao {
 			// Asi se hace el and
 			LogicalExpression andExpression = Restrictions.and(criterion1, criterion2);
 			
-			// Se agrega a creteria?
+			// Crea una lista con todos los usuarios que cumplan con ambos criterion
 			List<UserAnnotation> list = (List<UserAnnotation>) session.createCriteria(UserAnnotation.class)
 					.add(andExpression).list();
 
+			// Si al menos uno cumple, loggea
 			if (!list.isEmpty()) {
 				for (UserAnnotation u : list) {
 					us = new UserAnnotation();
@@ -65,7 +67,6 @@ public class UserDaoHibernate implements IUserDao {
 		} finally {
 			logger.info("Closing session...");
 			session.close();
-			//sessionFactory.close();
 		}
 
 		if (us == null) {
@@ -76,7 +77,7 @@ public class UserDaoHibernate implements IUserDao {
 	}	
 	
 	@Override
-	public void addUser(UserAnnotation user) throws SQLException {
+	public void addUser(UserAnnotation user) {
 		// Setup
 		sessionFactory = HibernateUtil.getSessionJavaConfigFactory();
 
@@ -91,16 +92,12 @@ public class UserDaoHibernate implements IUserDao {
 			
 			// Setea la data a guardar
 			logger.info("Creating values to insert...");
-			UserAnnotation[] values = new UserAnnotation[] {
-					new UserAnnotation(user.getUserName(), user.getPassword(), user.getEmail())
-			};
+			UserAnnotation value = new UserAnnotation(user.getUserName(), user.getPassword(), user.getEmail());
 			
 			// Salva la data
-			for (UserAnnotation u : values) {
-				logger.info(String.format("Saving value %s", u.getUserName()));
-				session.save(u);
-				logger.info(String.format("Value %s saved!", u.getUserName()));
-			}
+			logger.info(String.format("Saving value %s", value.getUserName()));
+			session.save(value);
+			logger.info(String.format("Value %s saved!", value.getUserName()));
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -110,9 +107,6 @@ public class UserDaoHibernate implements IUserDao {
 		} finally {
 			session.close();
 		}
-
-		// Destroy
-		//sessionFactory.close();
 
 	}
 

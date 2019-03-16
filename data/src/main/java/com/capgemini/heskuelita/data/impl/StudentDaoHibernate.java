@@ -1,7 +1,5 @@
 package com.capgemini.heskuelita.data.impl;
 
-import java.sql.SQLException;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,15 +14,17 @@ public class StudentDaoHibernate implements IStudentDao {
 
 	private static SessionFactory sessionFactory;
 	private static final Logger logger = LoggerFactory.getLogger(StudentDaoHibernate.class);
-	
+
+
 	public StudentDaoHibernate(SessionFactory sessionFactory) {
 		super();
 
 		this.sessionFactory = sessionFactory;
 	}
+
 	
 	@Override
-	public void addStudent(StudentAnnotation student) throws SQLException {
+	public void addStudent(StudentAnnotation student) {
 		// Setup
 		sessionFactory = HibernateUtil.getSessionJavaConfigFactory();
 		
@@ -39,16 +39,14 @@ public class StudentDaoHibernate implements IStudentDao {
 			
 			// Setea la data a guardar
 			logger.info("Creating values to insert...");
-			StudentAnnotation[] values = new StudentAnnotation[] {
-					new StudentAnnotation(student.getFirstName(), student.getLastName(), student.getDni(), student.getPhone(), student.getAddress(), student.getGender(), student.getUserName())
-			};
-			
+			StudentAnnotation value = new StudentAnnotation(student.getFirstName(), student.getLastName(),
+					student.getDni(), student.getPhone(), student.getAddress(), student.getGender(),
+					student.getUserName());
+
 			// Salva la data
-			for (StudentAnnotation s : values) {
-				logger.info(String.format("Saving value %s", s.getFirstName()));
-				session.save(s);
-				logger.info(String.format("Value %s saved!", s.getFirstName()));
-			}
+			logger.info(String.format("Saving value %s", value.getFirstName()));
+			session.save(value);
+			logger.info(String.format("Value %s saved!", value.getFirstName()));
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -58,9 +56,6 @@ public class StudentDaoHibernate implements IStudentDao {
 		} finally {
 			session.close();
 		}
-		
-		// Destroy
-		//sessionFactory.close();
 
 	}
 

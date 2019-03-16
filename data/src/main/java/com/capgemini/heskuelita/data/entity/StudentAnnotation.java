@@ -1,7 +1,6 @@
 package com.capgemini.heskuelita.data.entity;
 
 import javax.persistence.*;
-import lombok.*;
 
 @Entity(name = "Student")
 @Table(name = "student")
@@ -116,7 +115,5 @@ public class StudentAnnotation {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
 
 }
